@@ -77,10 +77,8 @@ const createElementsArray = elements => {
 
 const parseWords = elementsArray => {
     elementsArray.forEach(({ element }) => {
-        if (element.dataset.balanceTextParsed !== 'true') {
-            wrapSpanAroundEveryWord(element)
-            element.dataset.balanceTextParsed = 'true'
-        }
+        wrapSpanAroundEveryWord(element)
+        element.dataset.balanceTextParsed = 'true'
     })
 }
 
@@ -125,8 +123,7 @@ const balanceTextHelper = ({ elements = '.has-balanced-text', watch = true, only
     console.log(endTime - startTime)
 }
 
-const balanceText = options => {
-    if (CSS.supports('text-wrap', 'balance')) return
+const runBalancedText = options => {
     if ('requestIdleCallback' in window) {
         requestIdleCallback(
             () => {
@@ -141,6 +138,33 @@ const balanceText = options => {
     }
 }
 
+const balanceText = options => {
+    if (CSS.supports('text-wrap', 'balance')) return
+    runBalancedText(options)
+    if (options.watch) {
+        window.addEventListener(
+            'resize',
+            debounce(() => {
+                runBalancedText(options)
+            }, 200)
+        )
+    }
+}
+
+const debounce = (func, wait) => {
+    let timeout
+
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout)
+            func(...args)
+        }
+
+        clearTimeout(timeout)
+        timeout = setTimeout(later, wait)
+    }
+}
+
 window.addEventListener('load', () => {
-    balanceText({})
+    balanceText({ watch: true })
 })
