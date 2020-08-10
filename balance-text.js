@@ -96,21 +96,23 @@ const createOptimalLineBreaks = elementsArray => {
         const averageLineLength = calcContentLength(element) / element.lines
         let newHTML = ''
         let currentLineLength = 0
+        let totalLineBreaks = 1
         for (let i = 0; i < element.wordsLengths.length; i++) {
             const currentWordLength = element.wordsLengths[i] + element.space
             if (currentLineLength + currentWordLength > averageLineLength) {
                 newHTML += '<br>' + element.words[i] + ' '
                 currentLineLength = 0
+                totalLineBreaks++
             } else {
                 newHTML += element.words[i] + ' '
                 currentLineLength += currentWordLength
             }
         }
-        element.element.innerHTML = newHTML
+        if (totalLineBreaks <= element.lines) element.element.innerHTML = newHTML
     })
 }
 
-const balanceTextHelper = ({ elements = '.has-balanced-text', watch = true, onlyOnscreen = true }) => {
+const balanceTextHelper = ({ elements = '.has-balanced-text', visibleOnly = false }) => {
     const startTime = performance.now()
 
     const elementsArray = createElementsArray(elements)
@@ -166,5 +168,5 @@ const debounce = (func, wait) => {
 }
 
 window.addEventListener('load', () => {
-    balanceText({ watch: true })
+    balanceText({ watch: true, visibleOnly: true })
 })
