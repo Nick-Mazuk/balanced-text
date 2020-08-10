@@ -40,7 +40,7 @@ This limits many performance drawbacks of other algorithms.
 This script does assume a few things about the HTML contents:
 
 - The HTML elements only contain text (no sub elements, including `b`, `strong`, `a` tags). Will be fixed in future versions.
-- There are no manual line breaks
+- The only line-break opportunities are spaces `' '`
 
 ## Timing
 
