@@ -1,5 +1,8 @@
 const WORD_WRAPPER_CLASS = 'balance-text-word'
 const SPACE_WRAPPER_CLASS = 'balance-text-space'
+// const balancedTextObserver = new IntersectionObserver(balanceTextHelper, {
+//     rootMargin: '200px 0px',
+// })
 
 const elementIsEligible = element => {
     if (element.dataset.balanceTextParsed === 'true') return true
@@ -112,10 +115,17 @@ const createOptimalLineBreaks = elementsArray => {
     })
 }
 
-const balanceTextHelper = ({ elements = '.has-balanced-text', visibleOnly = false }) => {
+const balanceTextHelper = ({ elements = '.has-balanced-text', lazyBalance = false, elementsArray }) => {
     const startTime = performance.now()
-
-    const elementsArray = createElementsArray(elements)
+    if (!elementsArray) {
+        elementsArray = createElementsArray(elements)
+        if (lazyBalance === true) {
+            document.querySelectorAll(elements).forEach(element => {
+                balancedTextObserver.observe(element)
+            })
+            return
+        }
+    }
     getHeightOfEveryElement(elementsArray)
     parseWords(elementsArray)
     getWordWidths(elementsArray) // after DOM updates to prevent forced layout updates
@@ -123,6 +133,21 @@ const balanceTextHelper = ({ elements = '.has-balanced-text', visibleOnly = fals
 
     const endTime = performance.now()
     console.log(endTime - startTime)
+}
+
+const lazyBalanceHelper = entries => {
+    requestAnimationFrame(() => {
+        const elementsArray = []
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                elementsArray.push({ element: entry.target })
+                balancedTextObserver.unobserve(entry.target)
+            }
+        })
+        balanceTextHelper({
+            elementsArray: elementsArray,
+        })
+    })
 }
 
 const runBalancedText = options => {
@@ -169,6 +194,10 @@ const debounce = (func, wait) => {
     }
 }
 
+const balancedTextObserver = new IntersectionObserver(lazyBalanceHelper, {
+    rootMargin: '200px 0px',
+})
+
 window.addEventListener('load', () => {
-    balanceText({ watch: true, visibleOnly: true })
+    balanceText({ watch: true, lazyBalance: true })
 })

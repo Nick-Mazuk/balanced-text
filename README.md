@@ -106,4 +106,4 @@ If not, it uses `requestAnimationFrame` to minimize the chances of dropping a fr
 
 ## Report Bug / Feature Request
 
-https://github.com/Nick-Mazuk/balanced-text/issues
+[https://github.com/Nick-Mazuk/balanced-text/issues](https://github.com/Nick-Mazuk/balanced-text/issues)
