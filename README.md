@@ -114,6 +114,8 @@ By default, `balanceText` waits until the main thread is idle (see [Timing](#tim
 - Type: `Boolean`
 - Default: `False`
 
+`balanceText({ disableWait: true })`
+
 ## How it works
 
 1. Wraps every word in a span
