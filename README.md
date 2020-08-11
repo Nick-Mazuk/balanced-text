@@ -4,29 +4,47 @@ A performance-optimized script for balancing text in browser. `text-wrap: balanc
 
 Initial benchmarks are faster than both Adobe's and NY Time's polyfills.
 
-## Install
+## Quick Install
 
 `npm i balanced-text`
 
-CSS:
+### Import
+
+After installation, you can import the JS file into your project using this snippet:
+
+`import { balanceText } from 'balanced-text'`
+
+Then run:
+
+`balanceText()`
+
+### HTML
+
+```html
+<element class='has-text-balanced'>Lorem…</element>
+```
+
+### CSS (optional)
 
 ```css
-.has-balanced-text {
+/* For when the CSS spec is available */
+.has-text-balanced {
     text-wrap: balance;
 }
 ```
 
-HTML:
+*The JS will only run if your browser does not support `text-wrap: balance`.*
+
+### CDN (Alternative)
+
+[https://www.jsdelivr.com/package/npm/balanced-text](https://www.jsdelivr.com/package/npm/balanced-text)
 
 ```html
-<element class='has-balanced-text'>Lorem…</element>
-
-<script src='balance-text.js'>
+<script src='https://cdn.jsdelivr.net/npm/balanced-text@latest/balance-text.min.js'>
     balanceText()
 </script>
-```
 
-The JS will only run if your browser does not support `text-wrap: balance`.
+```
 
 ## Options
 
@@ -34,9 +52,10 @@ Options are passed as an optional object.
 
 ```js
 balanceText({
-    elements: '.has-balanced-text',
+    elements: '.has-text-balanced',
     watch: true,
-    debounce: 200
+    debounce: 200,
+    lazyBalance: false
 })
 ```
 

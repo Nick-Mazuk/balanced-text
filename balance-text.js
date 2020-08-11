@@ -1,8 +1,5 @@
 const WORD_WRAPPER_CLASS = 'balance-text-word'
 const SPACE_WRAPPER_CLASS = 'balance-text-space'
-// const balancedTextObserver = new IntersectionObserver(balanceTextHelper, {
-//     rootMargin: '200px 0px',
-// })
 
 const elementIsEligible = element => {
     if (element.dataset.balanceTextParsed === 'true') return true
@@ -70,7 +67,7 @@ const wrapSpanAroundEveryWord = element => {
 }
 
 const createElementsArray = elements => {
-    elementCollection = document.querySelectorAll(elements)
+    const elementCollection = document.querySelectorAll(elements)
     const elementsArray = []
     elementCollection.forEach(element => {
         if (elementIsEligible(element)) elementsArray.push({ element: element })
@@ -115,7 +112,7 @@ const createOptimalLineBreaks = elementsArray => {
     })
 }
 
-const balanceTextHelper = ({ elements = '.has-balanced-text', lazyBalance = false, elementsArray }) => {
+const balanceTextHelper = ({ elements = '.has-text-balanced', lazyBalance = false, elementsArray }) => {
     const startTime = performance.now()
     if (!elementsArray) {
         elementsArray = createElementsArray(elements)
@@ -197,3 +194,7 @@ const debounce = (func, wait) => {
 const balancedTextObserver = new IntersectionObserver(lazyBalanceHelper, {
     rootMargin: '200px 0px',
 })
+
+try {
+    if (exports) exports.balanceText = balanceText
+} catch (e) {}
