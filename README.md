@@ -73,7 +73,7 @@ Set debounce to `0` to eliminate it.
 
 ### Lazy Balance
 
-If you have many elements on your page that need balanced text, consider enabling lazy balance.
+If you have many elements on your page that need balanced text, consider enabling lazy balancing.
 
 When set to true, `balanceText` will only affect visible elements. Using `IntersectionObserver`, text will be automatically balanced when it enters the viewport. Because `balanceText` is fast, it should not introduce scroll jank.
 
