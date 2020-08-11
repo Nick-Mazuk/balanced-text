@@ -113,7 +113,6 @@ const createOptimalLineBreaks = elementsArray => {
 }
 
 const balanceTextHelper = ({ elements = '.has-text-balanced', lazyBalance = false, elementsArray }) => {
-    const startTime = performance.now()
     if (!elementsArray) {
         elementsArray = createElementsArray(elements)
         if (lazyBalance === true) {
@@ -127,9 +126,6 @@ const balanceTextHelper = ({ elements = '.has-text-balanced', lazyBalance = fals
     parseWords(elementsArray)
     getWordWidths(elementsArray) // after DOM updates to prevent forced layout updates
     createOptimalLineBreaks(elementsArray)
-
-    const endTime = performance.now()
-    console.log(endTime - startTime)
 }
 
 const lazyBalanceHelper = entries => {
@@ -148,7 +144,9 @@ const lazyBalanceHelper = entries => {
 }
 
 const runBalancedText = options => {
-    if ('requestIdleCallback' in window) {
+    if (options.disableWait) {
+        balanceTextHelper(options)
+    } else if ('requestIdleCallback' in window) {
         requestIdleCallback(
             () => {
                 balanceTextHelper(options)

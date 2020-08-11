@@ -55,7 +55,8 @@ balanceText({
     elements: '.has-text-balanced',
     watch: true,
     debounce: 200,
-    lazyBalance: false
+    lazyBalance: false,
+    disableWait: true
 })
 ```
 
@@ -101,6 +102,13 @@ When set to true, `balanceText` will only affect visible elements. Using `Inters
 
 `balanceText({ lazyBalance: true })`
 
+### Disable Wait
+
+By default, `balanceText` waits until the main thread is idle (see [Timing](#timing)). Enabling this option will make `balanceText` run as soon as possible. It may become render blocking. However, it can prevent the "flash" of unbalanced text.
+
+- Type: `Boolean`
+- Default: `False`
+
 ## How it works
 
 1. Wraps every word in a span
@@ -122,6 +130,8 @@ This script does assume a few things about the HTML contents:
 The script uses `requestIdleCallback` if available (~75% support). This reduces the likelihood that it interrupts important functions.
 
 If not, it uses `requestAnimationFrame` to minimize the chances of dropping a frame.
+
+`requestAnimationFrame` is always used during `lazyBalancing` to minimize scroll jank.
 
 ## Report Bug / Feature Request
 
