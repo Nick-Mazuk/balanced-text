@@ -1,5 +1,10 @@
 # Balanced Text
 
+<!-- ![Github](https://img.shields.io/github/v/release/nick-mazuk/balanced-text?logo=Github&style=flat-square) -->
+[![npm](https://img.shields.io/npm/v/balanced-text.svg?style=flat-square)][npm-link]
+[![npm](https://img.shields.io/npm/dm/balanced-text.svg?style=flat-square)][npm-link]
+[![](https://data.jsdelivr.com/v1/package/npm/balanced-text/badge)](https://www.jsdelivr.com/package/npm/bulma)
+
 A performance-optimized script for balancing text in browser. `text-wrap: balance` is in the CSS Text Module Level 4 draft. This JS script is a polyfill and is dependency-free.
 
 Initial benchmarks are faster than both Adobe's and NY Time's polyfills.
@@ -136,3 +141,9 @@ If not, it uses `requestAnimationFrame` to minimize the chances of dropping a fr
 ## Report Bug / Feature Request
 
 [https://github.com/Nick-Mazuk/balanced-text/issues](https://github.com/Nick-Mazuk/balanced-text/issues)
+
+## Copyright and license ![Github](https://img.shields.io/github/license/nick-mazuk/balanced-text?logo=Github&style=flat-square)
+
+©2020 Nick Mazuk. Code released under [the MIT license](https://github.com/Nick-Mazuk/balanced-text/blob/master/LICENSE).
+
+[npm-link]: https://www.npmjs.com/package/balanced-text
