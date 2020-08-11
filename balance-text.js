@@ -144,11 +144,12 @@ const balanceText = options => {
     if (CSS.supports('text-wrap', 'balance')) return
     runBalancedText(options)
     if (options.watch) {
+        const timing = options.debounce !== undefined ? options.debounce : 200
         window.addEventListener(
             'resize',
             debounce(() => {
                 runBalancedText(options)
-            }, 200)
+            }, timing)
         )
     }
 }
