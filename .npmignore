@@ -1,6 +1,7 @@
 # NPM Ignore Only
 index.html
 .vscode
+.gitattributes
 
 # Logs
 logs
