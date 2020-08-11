@@ -197,7 +197,3 @@ const debounce = (func, wait) => {
 const balancedTextObserver = new IntersectionObserver(lazyBalanceHelper, {
     rootMargin: '200px 0px',
 })
-
-window.addEventListener('load', () => {
-    balanceText({ watch: true, lazyBalance: true })
-})
