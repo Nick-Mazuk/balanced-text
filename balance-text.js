@@ -6,7 +6,7 @@ const SPACE_WRAPPER_CLASS = 'balance-text-space'
 
 const elementIsEligible = element => {
     if (element.dataset.balanceTextParsed === 'true') return true
-    if (element.childNodes.length == 1 && element.childNodes[0].nodeType == 3) return true // if element only contains text
+    if (element.childNodes.length === 1 && element.childNodes[0].nodeType === 3) return true // if element only contains text
     return false
 }
 
