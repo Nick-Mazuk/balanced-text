@@ -142,6 +142,7 @@ const runBalancedText = options => {
 
 const balanceText = options => {
     if (CSS.supports('text-wrap', 'balance')) return
+    if (!options) options = {}
     runBalancedText(options)
     if (options.watch) {
         const timing = options.debounce !== undefined ? options.debounce : 200
