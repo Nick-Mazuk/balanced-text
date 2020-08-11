@@ -124,7 +124,7 @@ const balanceTextHelper = ({ elements = '.has-text-balanced', lazyBalance = fals
     }
     getHeightOfEveryElement(elementsArray)
     parseWords(elementsArray)
-    getWordWidths(elementsArray) // after DOM updates to prevent forced layout updates
+    getWordWidths(elementsArray)
     createOptimalLineBreaks(elementsArray)
 }
 
