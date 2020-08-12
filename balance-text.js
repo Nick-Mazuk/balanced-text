@@ -11,10 +11,12 @@ const removeExistingLineBreaks = element => {
     element.innerHTML = element.innerHTML.replace(/<br>/g, '')
 }
 
-const getElementHeight = element => {
+const getElementDimensions = element => {
     removeExistingLineBreaks(element)
     const styles = getComputedStyle(element)
-    return element.clientHeight - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom)
+    const height = element.clientHeight - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom)
+    const width = element.clientWidth - parseFloat(styles.paddingLeft) - parseFloat(styles.paddingRight)
+    return { width: width, height: height }
 }
 
 const calcWordWidths = element => {
@@ -42,18 +44,19 @@ const calcSpaceWidths = element => {
 
 const calcContentLength = element => {
     const totalWordLength = element.wordsLengths.reduce((a, b) => (a += b))
-    const totalSpacesLength = element.wordsLengths.length * element.space
-    return totalWordLength + totalSpacesLength
+    const totalSpacesLength = (element.wordsLengths.length - 1) * element.space
+    return Math.floor(totalWordLength + totalSpacesLength)
 }
 
 const countLines = element => {
-    const lineHeight = element.element.querySelector(`.${WORD_WRAPPER_CLASS}`).getBoundingClientRect().height
-    return Math.round(element.height / lineHeight)
+    return Math.ceil(element.contentLength / element.width)
 }
 
-const getHeightOfEveryElement = elements => {
+const getDimensionsOfEveryElement = elements => {
     elements.forEach(element => {
-        element['height'] = getElementHeight(element.element)
+        const { width, height } = getElementDimensions(element.element)
+        element['height'] = height
+        element['width'] = width
     })
 }
 
@@ -87,28 +90,70 @@ const getWordWidths = elementsArray => {
         element['wordsLengths'] = calcWordWidths(element.element)
         element['words'] = getWords(element.element)
         element['space'] = calcSpaceWidths(element.element)
+        element['contentLength'] = calcContentLength(element)
         element['lines'] = countLines(element)
     })
 }
 
 const createOptimalLineBreaks = elementsArray => {
     elementsArray.forEach(element => {
-        const averageLineLength = calcContentLength(element) / element.lines
-        let newHTML = ''
-        let currentLineLength = 0
-        let totalLineBreaks = 1
-        for (let i = 0; i < element.wordsLengths.length; i++) {
-            const currentWordLength = element.wordsLengths[i] + element.space
-            if (currentLineLength + currentWordLength > averageLineLength) {
-                newHTML += '<br>' + element.words[i] + ' '
-                currentLineLength = 0
-                totalLineBreaks++
-            } else {
-                newHTML += element.words[i] + ' '
-                currentLineLength += currentWordLength
-            }
+        if (element.lines === 1) {
+            element.element.innerHTML = element.element.innerHTML.replace(/&nbsp;/g, '')
+            return
         }
-        if (totalLineBreaks <= element.lines) element.element.innerHTML = newHTML
+        const startTime = performance.now()
+
+        if (element.lines === 2) {
+            let left = 0
+            let right = element.wordsLengths.length - 1
+
+            let firstLine = 0
+            let lastLine = 0
+
+            while (left < right) {
+                if (element.wordsLengths[left] + firstLine < element.wordsLengths[right] + lastLine) {
+                    firstLine += element.wordsLengths[left]
+                    left++
+                } else {
+                    lastLine += element.wordsLengths[right]
+                    right--
+                }
+            }
+            let newHTML = ''
+            for (let i = 0; i < element.words.length; i++) {
+                newHTML += ' '
+                if (i === left) {
+                    if (firstLine > lastLine) {
+                        newHTML += `<br>${element.words[i]}`
+                    } else {
+                        newHTML += `${element.words[i]}<br>`
+                    }
+                } else {
+                    newHTML += `${element.words[i]}`
+                }
+            }
+            element.element.innerHTML = newHTML
+        } else {
+            const averageLineLength = element.contentLength / element.lines
+            let newHTML = ''
+            let currentLineLength = 0
+            let totalLineBreaks = 1
+            for (let i = 0; i < element.wordsLengths.length; i++) {
+                const currentWordLength = element.wordsLengths[i]
+                if (currentLineLength + currentWordLength > averageLineLength) {
+                    newHTML += '<br>' + element.words[i] + ' '
+                    currentLineLength = 0
+                    totalLineBreaks++
+                } else {
+                    newHTML += element.words[i] + ' '
+                    currentLineLength += currentWordLength + element.space
+                }
+            }
+            if (totalLineBreaks <= element.lines) element.element.innerHTML = newHTML
+        }
+
+        const endTime = performance.now()
+        console.log(endTime - startTime)
     })
 }
 
@@ -122,7 +167,7 @@ const balanceTextHelper = ({ elements = '.has-text-balanced', lazyBalance = fals
             return
         }
     }
-    getHeightOfEveryElement(elementsArray)
+    getDimensionsOfEveryElement(elementsArray)
     parseWords(elementsArray)
     getWordWidths(elementsArray)
     createOptimalLineBreaks(elementsArray)

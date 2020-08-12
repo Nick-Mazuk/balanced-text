@@ -234,7 +234,7 @@ body *:focus:not(:active) {
 .columns {
   --column-gap: 2rem;
   --column-row-count: 12;
-  --column-item-width: calc(200rem / (var(--column-row-count)) - var(--column-gap));
+  --column-item-width: calc(1450px / (var(--column-row-count)) - var(--column-gap));
   display: -ms-grid;
   display: grid;
   gap: var(--column-gap);
@@ -258,7 +258,7 @@ body *:focus:not(:active) {
 .flow {
   --flow-gap: 2rem;
   --breakpoint: 800px;
-  --min-column-width: 16.66667rem;
+  --min-column-width: 120.83333px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1443,7 +1443,7 @@ a:not(.button).is-cta.is-previous:before {
 
 .wrapper {
   --wrapper-padding-calculated: max(
-        calc((100% - var(--wrapper-width, 200rem)) / 2),
+        calc((100% - var(--wrapper-width, 1450px)) / 2),
         var(--wrapper-padding, 2rem)
     );
   padding-left: var(--wrapper-padding-calculated);
