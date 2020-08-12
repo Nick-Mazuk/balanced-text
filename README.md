@@ -9,6 +9,8 @@ A performance-optimized script for balancing text in browser. `text-wrap: balanc
 
 Initial benchmarks are faster than both Adobe's and NY Time's polyfills.
 
+[Demo](https://nickmazuk.com/balanced-text/)
+
 ## Quick Install
 
 `npm i balanced-text`
