@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Balanced Text Demo</title>
+        <link rel="stylesheet" href="scss/styles.css" />
+    </head>
+    <body>
+        <section class="section | wrapper is-small" data-text="true">
+            <div class="has-text-centered">
+                <h1 class="has-text-balanced">Balanced Text.</h1>
+                <h4 class="subtitle | has-text-balanced">
+                    A performance-optimized script for balancing text in browser.
+                </h4>
+            </div>
+            <p>
+                Works great for text, especially headers, blockquotes, and anywhere there's large display type.
+                Paragraphs like this one may not be ideal. But it's totally your call!
+            </p>
+            <p>Try resizing your browser…</p>
+        </section>
+        <section class="section | wrapper is-small is-hidden">
+            <p class="pretitle">With balanced text</p>
+            <h1 class="has-text-balanced">
+                Lorem ipsum, dolor sit amet.
+            </h1>
+            <p class="pretitle">Without balanced text</p>
+            <h1>
+                Lorem ipsum, dolor sit amet.
+            </h1>
+            <h2>
+                <i class="has-text-balanced"
+                    >Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium ab minus.
+                </i>
+            </h2>
+        </section>
+        <section class="section | wrapper is-xSmall">
+            <div class="stack">
+                <div>
+                    <div class="wrapper">Before — ugly</div>
+                    <div class="box is-light">
+                        <img class="full-width" src="./assets/images/mountain.jpg" alt="mountain" />
+                        <h5 class="has-text-centered">
+                            Centered text, especially titles, can be incredibly ugly unbalanced.
+                        </h5>
+                    </div>
+                </div>
+                <div>
+                    <div class="wrapper">After — pretty</div>
+                    <div class="box is-light">
+                        <img class="full-width" src="./assets/images/mountain.jpg" alt="mountain" />
+                        <h5 class="has-text-centered has-text-balanced">
+                            Centered text, even captions, look incredible when properly unbalanced.
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section | is-primary wrapper is-xLarge">
+            <div class="stack">
+                <div class="is-6">
+                    <h2 class="has-text-balanced">Great for hero sections with longer titles</h2>
+                    <p class="has-text-balanced">
+                        And hero descriptions. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta fugit
+                        repellat excepturi saepe voluptas accusamus sunt ut iusto autem aliquid, sint incidunt eius vel
+                        iure blanditiis quae nemo eos voluptates?
+                    </p>
+                    <button class="button | is-white">Toggle Balanced Text</button>
+                    <p class="half-margin is-size-7">Currently on.</p>
+                </div>
+            </div>
+        </section>
+        <section class="section | wrapper is-xLarge" data-text="true">
+            <h3 class="has-text-balanced">
+                &ldquo;There are three responses to a piece of design – yes, no, and WOW! Wow is the one we aim
+                for.&rdquo;
+            </h3>
+            <p class="half-margin"><b>Milton Glaser</b></p>
+            <p class="subtitle is-size-7">World renowned designer</p>
+            <div class="spacer is-small"></div>
+            <div class="stack | has-breakpoint-none is-centered is-vcentered">
+                <div class="is-narrow">
+                    <a href="https://www.npmjs.com/package/balanced-text" class="button is-primary"
+                        >Download with npm</a
+                    >
+                </div>
+                <div class="is-narrow">
+                    <a href="https://github.com/Nick-Mazuk/balanced-text" class="is-cta">View on Github</a>
+                </div>
+            </div>
+        </section>
+    </body>
+    <script src="../balance-text.js"></script>
+    <script>
+        balanceText({ elements: '.has-text-balanced', watch: true, disableWait: true })
+    </script>
+</html>
