@@ -11,11 +11,19 @@
             <div class="has-text-centered">
                 <h1 class="has-text-balanced">Balanced Text.</h1>
                 <h4 class="subtitle | has-text-balanced">
-                    A performance-optimized script for balancing text in browser.
+                    Make your text look professional. On any device. On any screen.
                 </h4>
+                <div class="stack has-breakpoint-none has-text-centered">
+                    <div class="has-text-right">
+                        <img src="https://img.shields.io/npm/v/balanced-text.svg?style=flat-square" alt="" />
+                    </div>
+                    <div class="has-text-left">
+                        <img src="https://img.shields.io/npm/dm/balanced-text.svg?style=flat-square" alt="" />
+                    </div>
+                </div>
             </div>
             <p>
-                Works great for text, especially headers, blockquotes, and anywhere there's large display type.
+                Works great for text, especially headers, block quotes, and anywhere there's large display type.
                 Paragraphs like this one may not be ideal. But it's totally your call!
             </p>
             <p>Try resizing your browser…</p>
@@ -57,28 +65,70 @@
                 </div>
             </div>
         </section>
-        <section class="section | is-primary wrapper is-xLarge">
+        <section id="background-earth" class="section | wrapper is-fullheight is-vcentered has-text-white">
             <div class="stack">
                 <div class="is-6">
-                    <h2 class="has-text-balanced">Great for hero sections with longer titles</h2>
-                    <p class="has-text-balanced">
-                        And hero descriptions. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta fugit
-                        repellat excepturi saepe voluptas accusamus sunt ut iusto autem aliquid, sint incidunt eius vel
-                        iure blanditiis quae nemo eos voluptates?
+                    <h2 class="has-text-balanced | hero-text">Great for hero sections with longer titles</h2>
+                    <p class="has-text-balanced | hero-text">
+                        Make your hero sections look out of this world. Balanced titles and descriptions will make it
+                        seem like you carefully crafted your website. In reality, you just added this script.
                     </p>
-                    <button class="button | is-white">Toggle Balanced Text</button>
-                    <p class="half-margin is-size-7">Currently on.</p>
+                    <button id="toggle-hero-button" class="button | is-white" data-balanced="true">
+                        Turn Off Balanced Text
+                    </button>
                 </div>
             </div>
         </section>
-        <section class="section | wrapper is-xLarge" data-text="true">
+        <section class="section | wrapper" data-text="true">
+            <h3 class="has-text-balanced">
+                Your blog titles and news articles always look perfect.
+            </h3>
+            <p class="is-gray-light">&nbsp;</p>
+            <p class="is-gray-light">&nbsp;</p>
+            <p class="is-gray-light">&nbsp;</p>
+            <p class="is-gray-light">&nbsp;</p>
+            <p class="is-gray-light">&nbsp;</p>
+            <div class="stack has-breakpoint-none">
+                <div class="is-6"><p class="is-gray-light">&nbsp;</p></div>
+                <div class="is-6"></div>
+            </div>
+        </section>
+        <section id="sample-header-section" class="section wrapper is-hidden">
+            <h1 class="has-text-centered">Before. After.</h1>
+            <div class="spacer"></div>
+            <h2 class="sample-header has-text-balanced">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus veniam, totam esse atque.
+            </h2>
+            <h3 class="sample-header has-text-balanced">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus temporibus libero corrupti unde
+                provident harum magni quia veniam, totam esse atque cumque!
+            </h3>
+            <h4 class="sample-header has-text-balanced">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus temporibus libero corrupti unde
+                provident harum magni quia veniam, totam esse atque cumque dolorum rem officiis distinctio laboriosam
+                eos fuga ea!
+            </h4>
+            <h5 class="sample-header has-text-balanced">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus temporibus libero corrupti unde
+                provident harum magni quia veniam, totam esse atque cumque dolorum rem officiis distinctio laboriosam
+                eos fuga ea!
+            </h5>
+            <h6 class="sample-header has-text-balanced">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus temporibus libero corrupti unde
+                provident harum magni quia veniam, totam esse atque cumque dolorum rem officiis distinctio laboriosam
+                eos fuga ea!
+            </h6>
+        </section>
+        <section class="section | wrapper is-dark" data-text="true">
             <h3 class="has-text-balanced">
                 &ldquo;There are three responses to a piece of design – yes, no, and WOW! Wow is the one we aim
                 for.&rdquo;
             </h3>
             <p class="half-margin"><b>Milton Glaser</b></p>
             <p class="subtitle is-size-7">World renowned designer</p>
-            <div class="spacer is-small"></div>
+        </section>
+        <section class="section | wrapper is-light is-xLarge" data-text="true">
+            <h1 class="has-text-centered has-text-balanced">Create wow with balanced text.</h1>
             <div class="stack | has-breakpoint-none is-centered is-vcentered">
                 <div class="is-narrow">
                     <a href="https://www.npmjs.com/package/balanced-text" class="button is-primary"
@@ -94,5 +144,66 @@
     <script src="../balance-text.js"></script>
     <script>
         balanceText({ elements: '.has-text-balanced', watch: true, disableWait: true })
+
+        const unbalanceHeroText = () => {
+            document.querySelectorAll('.hero-text').forEach(element => {
+                element.innerHTML = element.innerText
+                element.classList.remove('has-text-balanced')
+            })
+        }
+
+        const balanceHeroText = () => {
+            document.querySelectorAll('.hero-text').forEach(element => {
+                element.classList.add('has-text-balanced')
+            })
+
+            balanceText({ elements: '.hero-text' })
+        }
+
+        const toggleHeroBalancing = e => {
+            const button = e.currentTarget
+            if (button.dataset.balanced === 'true') {
+                unbalanceHeroText()
+                button.innerHTML = 'Turn On Balanced Text'
+                button.dataset.balanced = 'false'
+            } else {
+                balanceHeroText()
+                button.innerHTML = 'Turn Off Balanced Text'
+                button.dataset.balanced = 'true'
+            }
+        }
+
+        // const toggleHeaderBalancing = () => {
+        //     requestAnimationFrame(() => {
+        //         const startTime = performance.now()
+        //         let balanceTheHeaders = false
+        //         document.querySelectorAll('.sample-header').forEach(header => {
+        //             if (header.classList.contains('has-text-balanced')) {
+        //                 header.innerHTML = header.innerText
+        //                 header.classList.remove('has-text-balanced')
+        //             } else {
+        //                 header.classList.add('has-text-balanced')
+        //                 balanceTheHeaders = true
+        //             }
+        //         })
+        //         if (balanceTheHeaders) balanceText({ elements: '.sample-header' })
+        //         const endTime = performance.now()
+        //         console.log(endTime - startTime)
+        //     })
+        // }
+
+        // let sampleHeadingInterval = null
+
+        // const sampleHeaderIntersectionObserver = new IntersectionObserver(entries => {
+        //     if (entries[0].isIntersecting) {
+        //         sampleHeadingInterval = setInterval(toggleHeaderBalancing, 1000)
+        //     } else {
+        //         clearInterval(sampleHeadingInterval)
+        //     }
+        // })
+        // const section = document.querySelector('#sample-header-section')
+        // sampleHeaderIntersectionObserver.observe(section)
+
+        document.querySelector('#toggle-hero-button').addEventListener('click', toggleHeroBalancing)
     </script>
 </html>

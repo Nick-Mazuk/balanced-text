@@ -2050,4 +2050,11 @@ table th {
 table td {
   border: 1px solid #b5b5b5;
 }
+
+#background-earth {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.5))), url("../assets/images/earth.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../assets/images/earth.jpg");
+  background-size: cover;
+  background-position: top left;
+}
 /*# sourceMappingURL=styles.css.map */
