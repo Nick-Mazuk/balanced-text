@@ -101,7 +101,8 @@ const createOptimalLineBreaks = elementsArray => {
             element.element.innerHTML = element.element.innerHTML.replace(/&nbsp;/g, '')
             return
         }
-        const startTime = performance.now()
+
+        // const startTime = performance.now()
 
         if (element.lines === 2) {
             let left = 0
@@ -152,8 +153,8 @@ const createOptimalLineBreaks = elementsArray => {
             if (totalLineBreaks <= element.lines) element.element.innerHTML = newHTML
         }
 
-        const endTime = performance.now()
-        console.log(endTime - startTime)
+        // const endTime = performance.now()
+        // console.log(endTime - startTime)
     })
 }
 
