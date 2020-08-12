@@ -63,8 +63,9 @@ const getDimensionsOfEveryElement = elements => {
 const wrapSpanAroundEveryWord = element => {
     const innerText = element.innerText
     const splitText = innerText.split(' ')
+    const joinText = `</span> <span class='${WORD_WRAPPER_CLASS}'>`
     const newHTML = `<span class='${WORD_WRAPPER_CLASS}'>${splitText.join(
-        `</span> <span class='${WORD_WRAPPER_CLASS}'>`
+        joinText
     )}</span><span class='${SPACE_WRAPPER_CLASS}'>&nbsp;</span>`
     element.innerHTML = newHTML
 }
@@ -99,12 +100,7 @@ const createOptimalLineBreaks = elementsArray => {
     elementsArray.forEach(element => {
         if (element.lines === 1) {
             element.element.innerHTML = element.element.innerHTML.replace(/&nbsp;/g, '')
-            return
-        }
-
-        // const startTime = performance.now()
-
-        if (element.lines === 2) {
+        } else if (element.lines === 2) {
             let left = 0
             let right = element.wordsLengths.length - 1
 
@@ -136,25 +132,29 @@ const createOptimalLineBreaks = elementsArray => {
             element.element.innerHTML = newHTML
         } else {
             const averageLineLength = element.contentLength / element.lines
-            let newHTML = ''
-            let currentLineLength = 0
-            let totalLineBreaks = 1
-            for (let i = 0; i < element.wordsLengths.length; i++) {
-                const currentWordLength = element.wordsLengths[i]
-                if (currentLineLength + currentWordLength > averageLineLength) {
-                    newHTML += '<br>' + element.words[i] + ' '
-                    currentLineLength = 0
-                    totalLineBreaks++
-                } else {
-                    newHTML += element.words[i] + ' '
-                    currentLineLength += currentWordLength + element.space
+            let testLineLength = averageLineLength * 0.75
+            while (true) {
+                let newHTML = ''
+                let currentLineLength = 0
+                let totalLineBreaks = 1
+                for (let i = 0; i < element.wordsLengths.length; i++) {
+                    const currentWordLength = element.wordsLengths[i]
+                    if (currentLineLength + currentWordLength > testLineLength) {
+                        newHTML += '<br>' + element.words[i] + ' '
+                        currentLineLength = 0
+                        totalLineBreaks++
+                    } else {
+                        newHTML += element.words[i] + ' '
+                        currentLineLength += currentWordLength + element.space
+                    }
                 }
+                if (totalLineBreaks <= element.lines) {
+                    element.element.innerHTML = newHTML
+                    break
+                }
+                testLineLength += 15
             }
-            if (totalLineBreaks <= element.lines) element.element.innerHTML = newHTML
         }
-
-        // const endTime = performance.now()
-        // console.log(endTime - startTime)
     })
 }
 
