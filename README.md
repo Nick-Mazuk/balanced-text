@@ -15,13 +15,17 @@ Initial benchmarks are faster than both Adobe's and NY Time's polyfills.
 
 ## Quick Install
 
-`npm i balanced-text`
+```shell
+npm i balanced-text
+```
 
 ### Import
 
 After installation, you can import the JS file into your project using this snippet:
 
-`import { balanceText } from 'balanced-text'`
+```js
+import { balanceText } from 'balanced-text'
+```
 
 Then run:
 
@@ -76,7 +80,9 @@ Change which elements are balanced.
 - Type: `String`
 - Default: `'.has-text-balanced'`
 
-`balanceText({ elements: '.balance-text' })`
+```js
+balanceText({ elements: '.balance-text' })
+```
 
 Any string that works with `document.querySelectorAll()` is valid.
 
@@ -87,7 +93,9 @@ If the window is resized, rebalance the text.
 - Type: `Boolean`
 - Default: `false`
 
-`balanceText({ watch: true })`
+```js
+balanceText({ watch: true })
+```
 
 ### Debounce
 
@@ -96,7 +104,9 @@ When `watch: true`, `balanceText` is debounced by default. That reduces jank whe
 - Type: `Integer` (milliseconds)
 - Default: `200`
 
-`balanceText({ debounce: 200 })`
+```js
+balanceText({ debounce: 200 })
+```
 
 Set debounce to `0` to eliminate it.
 
@@ -109,7 +119,9 @@ When set to true, `balanceText` will only affect visible elements. Using `Inters
 - Type: `Boolean`
 - Default: `false`
 
-`balanceText({ lazyBalance: true })`
+```js
+balanceText({ lazyBalance: true })
+```
 
 ### Disable Wait
 
@@ -118,7 +130,9 @@ By default, `balanceText` waits until the main thread is idle (see [Timing](#tim
 - Type: `Boolean`
 - Default: `False`
 
-`balanceText({ disableWait: true })`
+```js
+balanceText({ disableWait: true })
+```
 
 ## How it works
 
