@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/dm/balanced-text.svg?style=flat-square)][npm-link]
 [![jsdeliver](https://data.jsdelivr.com/v1/package/npm/balanced-text/badge)](https://www.jsdelivr.com/package/npm/balanced-text)
 
-![balanced text demo](example.gif)
+![balanced text demo](https://raw.githubusercontent.com/Nick-Mazuk/balanced-text/master/example.gif)
 
 A performance-optimized script for balancing text in browser. `text-wrap: balance` is in the CSS Text Module Level 4 draft. This JS script is a polyfill and is dependency-free.
 
