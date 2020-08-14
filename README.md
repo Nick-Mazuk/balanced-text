@@ -66,10 +66,10 @@ Options are passed as an optional object.
 ```js
 balanceText({
     elements: '.has-text-balanced',
-    watch: true,
+    watch: false,
     debounce: 200,
     lazyBalance: false,
-    disableWait: true
+    disableWait: false
 })
 ```
 
